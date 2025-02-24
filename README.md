@@ -6,14 +6,14 @@ pivot_df = df.pivot_table(
     aggfunc='mean'        # Use average rating as the metric
 )
 
-# Calculate the total average rating for Free and Paid apps
+
 total_avg = df.groupby('Type')['Rating'].mean().to_frame().T
 total_avg.index = ['Overall Average']
 
-# Append the total average rating row to the pivot table
+
 pivot_df = pd.concat([pivot_df, total_avg])
 
-# Create an interactive heatmap using Plotly Express
+
 fig = px.imshow(
     pivot_df,
     labels=dict(x="App Type", y="Category", color="Average Rating"),
@@ -23,7 +23,7 @@ fig = px.imshow(
     title="Average App Rating by Category and Type (Free vs Paid)",
 )
 
-# Adjust the layout to make columns (Paid and Free) much wider
+
 fig.update_layout(
     autosize=False,
     width=1400,  # **Significantly increased width for better visibility**
@@ -32,5 +32,4 @@ fig.update_layout(
     yaxis_title="Category",
 )
 
-# Display the interactive figure
 fig.show()
